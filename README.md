@@ -67,91 +67,91 @@ print(f"Predicted BRISQUE score: {score}")
 Estimate the parameters of a Generalized Gaussian Distribution (GGD) for the input vector.
 
 Parameters:
-	•	vec (numpy.ndarray): Input vector.
+- vec (numpy.ndarray): Input vector.
 
 Returns:
-	•	alpha (float): Shape parameter.
-	•	sigma (float): Standard deviation.
+- alpha (float): Shape parameter.
+- sigma (float): Standard deviation.
 
 #### `estimate_aggd_parameters(vec)`
 Estimate the parameters of an Asymmetric Generalized Gaussian Distribution (AGGD) for the input vector.
 
 Parameters:
-	•	vec (numpy.ndarray): Input vector.
+- vec (numpy.ndarray): Input vector.
 
 Returns:
-	•	alpha (float): Shape parameter.
-	•	left_std (float): Left standard deviation.
-	•	right_std (float): Right standard deviation.
+- alpha (float): Shape parameter.
+- left_std (float): Left standard deviation.
+- right_std (float): Right standard deviation.
 
 #### `compute_brisque_features(img)`
 Compute BRISQUE features for a given image.
 
 Parameters:
-	•	img (numpy.ndarray): Input image in RGB or grayscale format.
+- img (numpy.ndarray): Input image in RGB or grayscale format.
 
 Returns:
-	•	features (list): Extracted BRISQUE features (length 36).
+- features (list): Extracted BRISQUE features (length 36).
 
 #### `compute_dataset_features(image_paths)`
 Compute BRISQUE features for a list of images.
 
 Parameters:
-	•	image_paths (list): List of image paths.
+- image_paths (list): List of image paths.
 
 Returns:
-	•	features_list (list): List of feature vectors.
+- features_list (list): List of feature vectors.
 
 #### `train_svm_model(features_list, mos_list)`
 Train an SVR model using BRISQUE features and MOS values.
 
 Parameters:
-	•	features_list (list): List of feature vectors.
-	•	mos_list (list): Corresponding Mean Opinion Scores.
+- features_list (list): List of feature vectors.
+- mos_list (list): Corresponding Mean Opinion Scores.
 
 Returns:
-	•	model (sklearn.pipeline.Pipeline): Trained SVR model.
+- model (sklearn.pipeline.Pipeline): Trained SVR model.
 
 #### `replace_infinite_values(features_list)`
 Replace infinite and NaN values in the features list with finite numbers.
 
 Parameters:
-	•	features_list (list): List of feature vectors.
+- features_list (list): List of feature vectors.
 
 Returns:
-	•	features_list_clean (list): Cleaned list of feature vectors.
+- features_list_clean (list): Cleaned list of feature vectors.
 
 #### `brisque_score(img, model)`
 Predict the BRISQUE quality score for an image.
 
 Parameters:
-	•	img (numpy.ndarray): Input image in RGB or grayscale format.
-	•	model (sklearn.pipeline.Pipeline): Trained SVR model.
+- img (numpy.ndarray): Input image in RGB or grayscale format.
+- model (sklearn.pipeline.Pipeline): Trained SVR model.
 
 Returns:
-	•	score (float): Predicted BRISQUE score.
+- score (float): Predicted BRISQUE score.
 
 #### `brisque(path_to_img, model)`
 Predict the BRISQUE quality score for an image given its file path.
 
 Parameters:
-	•	path_to_img (str): Path to the target image.
-	•	model (sklearn.pipeline.Pipeline): Trained SVR model.
+- path_to_img (str): Path to the target image.
+- model (sklearn.pipeline.Pipeline): Trained SVR model.
 
 Returns:
-	•	score (float): Predicted BRISQUE score.
+- score (float): Predicted BRISQUE score.
 
 #### `train_brisque_model(image_paths, mos_list)`
 Train an SVR model using BRISQUE features extracted from images and their corresponding MOS values.
 
 Parameters:
-	•	image_paths (list): List of image paths.
-	•	mos_list (list): Corresponding Mean Opinion Scores.
+- image_paths (list): List of image paths.
+- mos_list (list): Corresponding Mean Opinion Scores.
 
 Returns:
-	•	model (sklearn.pipeline.Pipeline): Trained SVR model.
+- model (sklearn.pipeline.Pipeline): Trained SVR model.
 
 ## Notes
-	•	Image Preprocessing: Ensure that images are properly loaded and converted to the RGB color space if they are read using OpenCV, which loads images in BGR format by default.
-	•	Model Parameters: The SVR model is configured with an RBF kernel, C=200, and gamma=0.0001. You may need to adjust these hyperparameters based on your specific dataset.
-	•	Data Cleaning: The code includes functions to handle infinite and NaN values in the feature vectors. It’s important to clean the features to avoid issues during model training and prediction.
+1. Image Preprocessing: Ensure that images are properly loaded and converted to the RGB color space if they are read using OpenCV, which loads images in BGR format by default.
+2. Model Parameters: The SVR model is configured with an RBF kernel, C=200, and gamma=0.0001. You may need to adjust these hyperparameters based on your specific dataset.
+3. Data Cleaning: The code includes functions to handle infinite and NaN values in the feature vectors. It’s important to clean the features to avoid issues during model training and prediction.
