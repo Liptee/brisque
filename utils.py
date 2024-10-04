@@ -127,6 +127,8 @@ def compute_dataset_features(image_paths: List) -> List:
     features_list = []
     for img_path in image_paths:
         img = cv2.imread(img_path)
+        if img is None:
+            raise FileNotFoundError(f"Image not found at path: {img_path}")
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         features = compute_brisque_features(img)
         features_list.append(features)
