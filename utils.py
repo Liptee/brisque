@@ -43,8 +43,8 @@ def estimate_aggd_parameters(vec):
         left_std (float): Left standard deviation.
         right_std (float): Right standard deviation.
     """
-    left_vec = vec[vec < 0]
-    right_vec = vec[vec > 0]
+    left_vec = vec[vec < 0].astype(np.float64)
+    right_vec = vec[vec > 0].astype(np.float64)
 
     left_std = np.sqrt((left_vec ** 2).mean()) if left_vec.size > 0 else 0
     right_std = np.sqrt((right_vec ** 2).mean()) if right_vec.size > 0 else 0
@@ -103,7 +103,8 @@ def compute_brisque_features(img: np.ndarray) -> List:
 
     for shift in shifts:
         shifted_mscn = np.roll(mscn, shift, axis=(0, 1))
-        pair = mscn ** shifted_mscn
+        epsilon = 1e-10
+        pair = np.power(np.abs(mscn) + epsilon, shifted_mscn)
         alpha, left_std, right_std = estimate_aggd_parameters(pair)
         const = (gamma(2/alpha) / gamma(1/alpha)) ** 0.5
         mean = (right_std - left_std) * (gamma(2/alpha) / gamma(1/alpha)) * const
