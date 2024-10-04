@@ -50,7 +50,7 @@ def estimate_aggd_parameters(vec):
     right_std = np.sqrt((right_vec ** 2).mean()) if right_vec.size > 0 else 0
 
     if left_std == 0 or right_std == 0:
-        return 0.01, 0, 0
+        return 0.1, 0, 0
 
     gammahat = left_std / right_std
     rhat = (np.mean(np.abs(vec))) ** 2 / np.mean(vec ** 2)
@@ -92,6 +92,8 @@ def compute_brisque_features(img: np.ndarray) -> List:
 
     sigma[sigma < 1/255.0] = 1/255.0
     mscn = (img - mu) / sigma
+
+    # check mscn is valid value
 
     shifts = [(0, 1), (1, 0), (1, 1), (-1, 1)]
     features = []
